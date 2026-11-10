@@ -9,6 +9,8 @@ namespace core {
     class Creature {
     public:
 
+        Creature();
+
         void moveToward(Vec2 destination, float dt);
         void eat();
         void setSpeed(float speed);
@@ -16,11 +18,13 @@ namespace core {
         Vec2 getPosition();
         int getFoodEaten();
         void clearFoodEaten();
+        float getSpeed();
 
     private:
         float speed_ = 0.f;
         int food_eaten_ = 0;
         Vec2 current_position_;
+
 
 
     };

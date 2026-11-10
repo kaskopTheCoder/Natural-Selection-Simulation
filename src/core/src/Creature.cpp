@@ -6,6 +6,10 @@
 
 namespace core {
 
+    Creature::Creature() {
+
+    }
+
     void Creature::moveToward(Vec2 destination, float dt) {
         Vec2 diff = destination - this->current_position_;
         float step = this->speed_ * dt;
@@ -40,5 +44,9 @@ namespace core {
 
     void Creature::clearFoodEaten() {
         this->food_eaten_ = 0;
+    }
+
+    float Creature::getSpeed() {
+        return this->speed_;
     }
 }
