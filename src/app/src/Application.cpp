@@ -35,18 +35,15 @@ namespace app {
                 controller.checkKeyBoardInput(event);
             }
 
-
-            printf("Speed set to: %ld", controller.getUpdatesPerFrame());
-            printf(controller.isPaused() ? "Paused\n" : "Running\n");
-
             window.clear(sf::Color(18,20,26));
 
-            if (!controller.isPaused()) {
-                simulation.runSimulation(controller.getUpdatesPerFrame());
-                window.clear(sf::Color(18,20,26));
-                renderHandler.renderFood(window, simulation.getWorld());
-                renderHandler.renderCreatures(window, simulation.getWorld());
-            }
+            simulation.checkIfPaused(controller.isPaused());
+
+            simulation.runSimulation(controller.getUpdatesPerFrame());
+            window.clear(sf::Color(18,20,26));
+            renderHandler.renderFood(window, simulation.getWorld());
+            renderHandler.renderCreatures(window, simulation.getWorld());
+
 
 
 

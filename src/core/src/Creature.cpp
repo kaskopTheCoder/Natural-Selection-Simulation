@@ -58,7 +58,7 @@ namespace core {
     }
 
     void Creature::setEnergy(float energy) {
-        this->energy_ += energy;
+        this->energy_ = energy;
     }
 
     float Creature::getEnergy() {

@@ -18,8 +18,10 @@ namespace app {
         core::World& getWorld();
         float getWorldHeight();
         float getWorldWidth();
+        void checkIfPaused(bool isPaused);
 
     private:
+        bool is_paused_ = true;
         core::Config config_;
         core::World world_;
         core::Evolution evolution_;

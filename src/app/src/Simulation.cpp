@@ -8,7 +8,7 @@ namespace app {
     Simulation::Simulation() : world_(config_), evolution_(world_) {};
 
     void Simulation::runSimulation(size_t updates_per_frame) {
-
+        if (is_paused_) return;
         if (world_.getCreatures().empty()) {
             return;
         }
@@ -36,6 +36,10 @@ namespace app {
 
     float Simulation::getWorldWidth() {
         return config_.world_width_;
+    }
+
+    void Simulation::checkIfPaused(bool isPaused) {
+        is_paused_ = isPaused;
     }
 }
 

@@ -38,6 +38,7 @@ namespace core {
     }
 
     void World::placeFood() {
+        foods_.clear();
         std::uniform_real_distribution<float> dx(0.f, 1.f);
         std::uniform_real_distribution<float> dy(0.f, 1.f);
         float H = cfg_.world_height_, W = cfg_.world_width_;

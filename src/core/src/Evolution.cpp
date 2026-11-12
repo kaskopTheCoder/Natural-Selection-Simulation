@@ -18,6 +18,7 @@ namespace core {
             if (c.isExhausted()) continue;
             Creature survivor = c;
             survivor.clearFoodEaten();
+            c.setEnergy(cfg.starting_energy_);
             nextGeneration.push_back(survivor);
 
             if (c.getEnergy() >= cfg.reproduction_threshold) {
