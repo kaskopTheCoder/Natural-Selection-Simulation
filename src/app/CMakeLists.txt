@@ -9,7 +9,7 @@ add_library(app STATIC
 )
 
 target_include_directories(app PUBLIC include)
-target_link_libraries(app PRIVATE core sfml-graphics sfml-window sfml-system)
+target_link_libraries(app PRIVATE core sfml-graphics sfml-window sfml-system ImGui-SFML::ImGui-SFML)
 
 target_link_libraries(simulationApp PRIVATE app)
 

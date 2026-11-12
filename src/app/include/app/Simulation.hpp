@@ -19,8 +19,13 @@ namespace app {
         float getWorldHeight();
         float getWorldWidth();
         void checkIfPaused(bool isPaused);
+        int getGeneration();
+        int getFoodLeft();
 
     private:
+        int generation_ = 1;
+        int food_left_ = 0;
+        int creatures_alive_ = 0;
         bool is_paused_ = true;
         core::Config config_;
         core::World world_;

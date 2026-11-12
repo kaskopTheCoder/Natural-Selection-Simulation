@@ -7,7 +7,8 @@
 #include <app/Simulation.hpp>
 #include <app/RenderHandler.hpp>
 #include "app/Controller.hpp"
-#include <iostream>
+#include <imgui.h>
+#include <imgui-SFML.h>
 
 namespace app {
 
@@ -19,6 +20,11 @@ namespace app {
         sf::RenderWindow window(sf::VideoMode(1600, 1200 ), "Simulation");
         window.setFramerateLimit(60);
 
+        if (!ImGui::SFML::Init(window)) return;
+        ImGui::GetIO().FontGlobalScale = 2.5f;
+        sf::Clock deltaClock;
+
+
         renderHandler.setUpShapes();
 
         simulation.getWorld().startDay();
@@ -28,6 +34,7 @@ namespace app {
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
+                ImGui::SFML::ProcessEvent(window, event);
                 if (event.type == sf::Event::Closed) {
                     window.close();
                 }
@@ -35,9 +42,18 @@ namespace app {
                 controller.checkKeyBoardInput(event);
             }
 
+            ImGui::SFML::Update(window, deltaClock.restart());
+
             window.clear(sf::Color(18,20,26));
 
             simulation.checkIfPaused(controller.isPaused());
+
+            ImGui::Begin("Symulacja");
+            ImGui::Text("Food left: %d", simulation.getFoodLeft());
+            ImGui::Text("Generation: %d ", simulation.getGeneration() );
+            ImGui::End();
+
+
 
             simulation.runSimulation(controller.getUpdatesPerFrame());
             window.clear(sf::Color(18,20,26));
@@ -46,9 +62,11 @@ namespace app {
 
 
 
-
+            ImGui::SFML::Render(window);
 
             window.display();
         }
+
+        ImGui::SFML::Shutdown();
     }
 }

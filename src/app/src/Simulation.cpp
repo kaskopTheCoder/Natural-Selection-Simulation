@@ -17,10 +17,18 @@ namespace app {
             evolution_.endDay(config_);
 
             world_.startDay();
+            generation_++;
+
         }else {
             for (int i = 0; i < updates_per_frame; i++) {
                 world_.update(dt_);
             }
+            food_left_ = 0;
+            for (core::Food& f : world_.getFoods()) {
+                if (f.eaten_) continue;
+                food_left_ ++;
+            }
+
 
         }
 
@@ -40,6 +48,14 @@ namespace app {
 
     void Simulation::checkIfPaused(bool isPaused) {
         is_paused_ = isPaused;
+    }
+
+    int Simulation::getGeneration() {
+        return generation_;
+    }
+
+    int Simulation::getFoodLeft() {
+        return food_left_;
     }
 }
 
