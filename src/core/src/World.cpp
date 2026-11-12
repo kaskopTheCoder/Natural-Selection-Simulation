@@ -4,14 +4,14 @@
 
 #include <core/World.hpp>
 #include <core/Config.hpp>
+#include <core/Genome.hpp>
 #include <numeric>
 #include <algorithm>
 
 namespace core {
     World::World(Config& cfg) : cfg_(cfg) {
         for (int i = 0; i < cfg_.number_of_creatures_; i++) {
-            Creature c;
-            c.setSpeed(cfg_.base_speed_);
+            Creature c(core::randomGenome(cfg, rnd_), cfg_.starting_energy_);
             creatures_.push_back(c);
         }
     }
@@ -64,7 +64,7 @@ namespace core {
         if (food.eaten_) { return false;}
         if (distance(creature.getPosition(), food.position_) > cfg_.eat_radius_) {return false;}
         food.eaten_ = true;
-        creature.eat();
+        creature.eat(cfg_.food_energy);
         return true;
 
     }
@@ -77,10 +77,11 @@ namespace core {
         std::shuffle(order.begin(), order.end(), rnd_);
 
         for (std::size_t i : order) {
+            if (creatures_[i].isExhausted()) continue;
             Creature& creature = creatures_[i];
             Food* target = searchNearestFood(creature.getPosition());
             if (!target) break;
-            creature.moveToward(target->position_, dt);
+            creature.moveToward(target->position_, cfg_.speed_cost, dt);
             tryEat(creature, *target);
         }
 
@@ -105,5 +106,9 @@ namespace core {
 
     void World::clearFoods() {
         foods_.clear();
+    }
+
+    std::mt19937& World::getGenerator(){
+        return this->rnd_;
     }
 }

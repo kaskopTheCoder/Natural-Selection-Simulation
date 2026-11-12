@@ -3,31 +3,34 @@
 //
 
 #include <core/Creature.hpp>
+#include <core/Genome.hpp>
 
 namespace core {
 
-    Creature::Creature() {
+    Creature::Creature(const Genome& genome, float starting_energy) : genome_(genome), energy_(starting_energy) {
 
     }
 
-    void Creature::moveToward(Vec2 destination, float dt) {
+    void Creature::moveToward(Vec2 destination, float energy_cost, float dt) {
         Vec2 diff = destination - this->current_position_;
-        float step = this->speed_ * dt;
+        float step = this->genome_.speed * dt;
         if (diff.length() < step) {
             this->current_position_ = destination;
-
-            return;
+        } else {
+            this->current_position_ = this->current_position_ + diff.normalized() * step;
         }
-        this->current_position_ = this->current_position_ + diff.normalized() * step;
+        energy_ -= energy_cost * genome_.speed * genome_.speed * dt;
+
 
     }
 
-    void Creature::eat() {
+    void Creature::eat(float food_energy) {
         food_eaten_++;
+        energy_ += food_energy;
     }
 
     void Creature::setSpeed(float speed) {
-        this->speed_ = speed;
+        this->genome_.speed = speed;
     }
 
     void Creature::setPosition(Vec2 position) {
@@ -47,6 +50,25 @@ namespace core {
     }
 
     float Creature::getSpeed() {
-        return this->speed_;
+        return this->genome_.speed;
+    }
+
+    const Genome& Creature::getGenome(){
+        return this->genome_;
+    }
+
+    void Creature::setEnergy(float energy) {
+        this->energy_ += energy;
+    }
+
+    float Creature::getEnergy() {
+        return this->energy_;
+    }
+
+    bool Creature::isExhausted() {
+        return (energy_ <= 0);
+    }
+    void Creature::addEnergy(float energy) {
+        this->energy_ += energy;
     }
 }

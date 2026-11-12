@@ -13,7 +13,15 @@ namespace core {
         int number_of_creatures_ =50;
         int number_of_food_ = 45;
         float base_speed_ = 20.f;
+        float minimum_speed = 15.f;
+        float maximum_speed = 30.f;
+        float reproduction_threshold = 150.f;
+        float mutation_sterngth = 0.07f;
+        float mutation_chance = .3f;
         float eat_radius_ = 3.f;
+        float starting_energy_ = 100.f;
+        float food_energy = 60.f;
+        float speed_cost = 0.005f;
     };
 }
 #endif //MUTATIONSIM_CONFIG_HPP

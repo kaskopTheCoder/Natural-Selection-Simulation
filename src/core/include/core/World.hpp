@@ -25,9 +25,10 @@ namespace core {
         std::vector<Creature>& getCreatures();
         std::vector<Food>& getFoods();
         void clearFoods();
+        std::mt19937& getGenerator();
 
     private:
-        Config cfg_;
+        Config& cfg_;
         std::mt19937 rnd_;
 
 

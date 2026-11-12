@@ -24,7 +24,7 @@ int main() {
             printf("Creature %d ate %d food\n", i++, c.getFoodEaten());
         }
 
-        evolution.endDay();
+        evolution.endDay(config);
 
     }
 }

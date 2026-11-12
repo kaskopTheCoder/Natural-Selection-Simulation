@@ -4,26 +4,35 @@
 #ifndef MUTATIONSIM_CREATURE_HPP
 #define MUTATIONSIM_CREATURE_HPP
 #include <core/Vec2.hpp>
+#include <core/Genome.hpp>
 
 namespace core {
     class Creature {
     public:
 
-        Creature();
+        Creature(const Genome& genome, float starting_energy);
 
-        void moveToward(Vec2 destination, float dt);
-        void eat();
+        void moveToward(Vec2 destination, float energy_cost,  float dt);
+        void eat(float food_energy);
         void setSpeed(float speed);
         void setPosition(Vec2 position);
         Vec2 getPosition();
         int getFoodEaten();
         void clearFoodEaten();
         float getSpeed();
+        const Genome& getGenome();
+        void setEnergy(float energy);
+        float getEnergy();
+        bool isExhausted();
+        void addEnergy(float energy);
+
+
 
     private:
-        float speed_ = 0.f;
         int food_eaten_ = 0;
+        float energy_;
         Vec2 current_position_;
+        Genome genome_;
 
 
 

@@ -14,7 +14,7 @@ namespace app {
         }
 
         if (world_.dayOver()) {
-            evolution_.endDay();
+            evolution_.endDay(config_);
 
             world_.startDay();
         }else {

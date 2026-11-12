@@ -13,6 +13,7 @@ namespace app {
     class RenderHandler {
     public:
         void setUpShapes();
+        sf::Color getCreatureColor(float speed);
         void renderCreatures(sf::RenderWindow& window, core::World& world);
         void renderFood(sf::RenderWindow& window, core::World& world);
 

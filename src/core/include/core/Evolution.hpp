@@ -12,7 +12,9 @@ namespace core {
 
         explicit Evolution(World& world);
 
-        void endDay();
+        void endDay(Config& cfg);
+
+        std::mt19937& gen_;
     };
 }
 #endif //MUTATIONSIM_EVOLUTION_HPP
