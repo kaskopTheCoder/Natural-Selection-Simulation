@@ -11,7 +11,10 @@ namespace app {
     class Controller {
         public:
 
+        Controller(app::Simulation& simulation);
+
         void checkKeyBoardInput(sf::Event& event);
+        void pauseSimulation();
         size_t getUpdatesPerFrame();
         bool isPaused();
 
@@ -19,6 +22,7 @@ namespace app {
 
         size_t updates_per_frame_ = 1;
         bool isPaused_ = true;
+        Simulation& simulation_;
 
     };
 }

@@ -15,7 +15,7 @@ namespace app {
     void Application::startApplication() {
         app::Simulation simulation{};
         app::RenderHandler renderHandler;
-        app::Controller controller;
+        app::Controller controller(simulation);
 
         sf::RenderWindow window(sf::VideoMode(1600, 1200 ), "Simulation");
         window.setFramerateLimit(60);
@@ -46,7 +46,7 @@ namespace app {
 
             window.clear(sf::Color(18,20,26));
 
-            simulation.checkIfPaused(controller.isPaused());
+
 
             ImGui::Begin("Symulacja");
             ImGui::Text("Food left: %d", simulation.getFoodLeft());
