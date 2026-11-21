@@ -26,6 +26,10 @@ namespace app {
 
     }
 
+    void Simulation::pause() {
+        this->is_paused_ = !is_paused_;
+    }
+
     core::World& Simulation::getWorld() {
         return world_;
     }

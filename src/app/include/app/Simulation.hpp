@@ -18,6 +18,7 @@ namespace app {
         core::World& getWorld();
         float getWorldHeight();
         float getWorldWidth();
+        void pause();
         void checkIfPaused(bool isPaused);
 
     private:

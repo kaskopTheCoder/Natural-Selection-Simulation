@@ -7,6 +7,8 @@
 
 namespace app {
 
+    Controller::Controller(app::Simulation& simulation) : simulation_(simulation){}
+
     void Controller::checkKeyBoardInput(sf::Event& event) {
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Up && updates_per_frame_ < 5) {
@@ -16,9 +18,13 @@ namespace app {
                 updates_per_frame_--;
             }
             if (event.key.code == sf::Keyboard::Space) {
-                isPaused_ = !isPaused_;
+                pauseSimulation();
             }
         }
+    }
+
+    void Controller::pauseSimulation() {
+        simulation_.pause();
     }
 
     size_t Controller::getUpdatesPerFrame() {
