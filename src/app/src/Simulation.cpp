@@ -7,7 +7,7 @@
 namespace app {
     Simulation::Simulation() : world_(config_), evolution_(world_) {};
 
-    void Simulation::runSimulation(size_t updates_per_frame) {
+    void Simulation::runSimulation() {
         if (is_paused_) return;
         if (world_.getCreatures().empty()) {
             return;
@@ -20,7 +20,7 @@ namespace app {
             generation_++;
 
         }else {
-            for (int i = 0; i < updates_per_frame; i++) {
+            for (int i = 0; i < updates_per_frame_; i++) {
                 world_.update(dt_);
             }
             food_left_ = 0;
@@ -50,10 +50,6 @@ namespace app {
         return config_.world_width_;
     }
 
-    void Simulation::checkIfPaused(bool isPaused) {
-        is_paused_ = isPaused;
-    }
-
     int Simulation::getGeneration() {
         return generation_;
     }
@@ -61,5 +57,38 @@ namespace app {
     int Simulation::getFoodLeft() {
         return food_left_;
     }
+
+    void Simulation::speedUp() {
+        if (updates_per_frame_ < 5) {
+            updates_per_frame_++;
+        }
+    }
+
+    void Simulation::slowDown() {
+        if (updates_per_frame_ > 1) {
+            updates_per_frame_--;
+        }
+    }
+
+    int Simulation::getSpeed() {
+        return updates_per_frame_;
+    }
+
+    bool Simulation::isPaused() {
+        return is_paused_;
+    }
+
+    float Simulation::getFastestSpeed() {
+        float best_speed =  0;
+        for (core::Creature& c : world_.getCreatures()) {
+            float loc_speed = c.getGenome().speed;
+
+            if ( loc_speed > best_speed && !c.isExhausted()) best_speed = loc_speed;
+        }
+
+        return best_speed;
+    }
+
+
 }
 

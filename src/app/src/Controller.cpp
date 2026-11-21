@@ -11,11 +11,11 @@ namespace app {
 
     void Controller::checkKeyBoardInput(sf::Event& event) {
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Up && updates_per_frame_ < 5) {
-                updates_per_frame_++;
+            if (event.key.code == sf::Keyboard::Up) {
+                speedUpSimulation();
             }
-            if (event.key.code == sf::Keyboard::Down && updates_per_frame_ > 1) {
-                updates_per_frame_--;
+            if (event.key.code == sf::Keyboard::Down) {
+                slowDownSimulation();
             }
             if (event.key.code == sf::Keyboard::Space) {
                 pauseSimulation();
@@ -27,11 +27,11 @@ namespace app {
         simulation_.pause();
     }
 
-    size_t Controller::getUpdatesPerFrame() {
-        return updates_per_frame_;
+    void Controller::speedUpSimulation() {
+        simulation_.speedUp();
     }
 
-    bool Controller::isPaused() {
-        return isPaused_;
+    void Controller::slowDownSimulation() {
+        simulation_.slowDown();
     }
 }

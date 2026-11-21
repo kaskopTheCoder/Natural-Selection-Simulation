@@ -7,6 +7,7 @@
 #include <app/Simulation.hpp>
 #include <app/RenderHandler.hpp>
 #include "app/Controller.hpp"
+#include <app/Panel.hpp>
 #include <imgui.h>
 #include <imgui-SFML.h>
 
@@ -16,6 +17,7 @@ namespace app {
         app::Simulation simulation{};
         app::RenderHandler renderHandler;
         app::Controller controller(simulation);
+        app::Panel panel(simulation, controller);
 
         sf::RenderWindow window(sf::VideoMode(1600, 1200 ), "Simulation");
         window.setFramerateLimit(60);
@@ -46,16 +48,9 @@ namespace app {
 
             window.clear(sf::Color(18,20,26));
 
+            panel.startUserPanel();
 
-
-            ImGui::Begin("Symulacja");
-            ImGui::Text("Food left: %d", simulation.getFoodLeft());
-            ImGui::Text("Generation: %d ", simulation.getGeneration() );
-            ImGui::End();
-
-
-
-            simulation.runSimulation(controller.getUpdatesPerFrame());
+            simulation.runSimulation();
             window.clear(sf::Color(18,20,26));
             renderHandler.renderFood(window, simulation.getWorld());
             renderHandler.renderCreatures(window, simulation.getWorld());

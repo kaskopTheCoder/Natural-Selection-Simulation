@@ -6,6 +6,7 @@ add_library(app STATIC
     src/Simulation.cpp
     src/Controller.cpp
     src/RenderHandler.cpp
+    src/Panel.cpp
 )
 
 target_include_directories(app PUBLIC include)

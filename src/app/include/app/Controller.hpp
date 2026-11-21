@@ -15,13 +15,10 @@ namespace app {
 
         void checkKeyBoardInput(sf::Event& event);
         void pauseSimulation();
-        size_t getUpdatesPerFrame();
-        bool isPaused();
+        void speedUpSimulation();
+        void slowDownSimulation();
 
         private:
-
-        size_t updates_per_frame_ = 1;
-        bool isPaused_ = true;
         Simulation& simulation_;
 
     };
